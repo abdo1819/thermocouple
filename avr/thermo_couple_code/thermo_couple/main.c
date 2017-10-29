@@ -1,17 +1,56 @@
 /*
- * Author : abdo
+ * avr_train01.c
  *
  * Created: 8/23/2017 5:12:30 PM
- * 
- * state: in developing
+ * Author : abdo
  */ 
 #define F_CPU 1000000UL
 #include <avr/io.h>
 #include <util/delay.h>
 
+int seven_sgment(int x){
+	int y =0;
+	switch (x){
+		case 0:
+		y = ~0b11111100;
+		break;
+		case 1:
+		y = ~0b01100000;
+		break;
+		case 2:
+		y = ~0b11011010;
+		break;
+		case 3:
+		y = ~0b11110010;
+		break;
+		case 4:
+		y = ~0b01100110;
+		break;
+		case 5:
+		y = ~0b10110110;
+		break;
+		case 6:
+		y = ~0b10111110;
+		break;
+		case 7:
+		y = ~0b11100000;
+		break;
+		case 8:
+		y = ~0b11111110;
+		break;
+		case 9:
+		y = ~0b11110110;
+		break;
+	}
+	return y;
+}
+
+
+
 int spi_sck = 7;
 int spi_ss = 4;
 int spi_mosi = 5;
+
 int b = 0;
 int16_t v;
 double temp;
@@ -69,10 +108,17 @@ int main(void)
     while (1) 
     {
 		_delay_ms(500);
+		
 	  temp = read_cel();
 	  
-	  PORTA = (temp);
-	  PORTC = (temp);		
+	  for(int i =1 ; i<100; i++){
+		PORTA = seven_sgment((i-(i%10))/10);
+		PORTC = seven_sgment(i%10);
+		_delay_ms(500);
+		  
+	  
+	  }  
+	  
     }
 }
 
