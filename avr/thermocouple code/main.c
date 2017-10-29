@@ -1,8 +1,9 @@
 /*
- * avr_train01.c
+ * Author : abdo
  *
  * Created: 8/23/2017 5:12:30 PM
- * Author : abdo
+ * 
+ * state: in developing
  */ 
 #define F_CPU 1000000UL
 #include <avr/io.h>
